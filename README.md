@@ -18,10 +18,28 @@ para o CSPS e conciliação pós-evento.
 |---|---|
 | `docs/` | Decisões, handoff, layouts de carga |
 | `db/migrations/` | Schema SQL (portável: qualquer Postgres 15+) |
-| `cargas/` | Modelos de planilha (sem dados corporativos) |
-| `app/` | Aplicação web (a criar) |
+| `db/tests/` | Teste das regras de pedido (roda dentro do `npm test`) |
+| `cargas/` | Modelo de planilha (sem dados corporativos) |
+| `web/` | Aplicação (Next.js 16 + Postgres), scripts e testes |
 | `dados/` | **Fora do Git.** Bases brutas, extrações do CSPS, planilhas com dado da rede |
 
-## Stack (decisão pendente, ver HANDOFF)
+## Rodar na sua máquina
 
-Postgres + app web na Vercel, login por convite. Arquitetura portável para a infra da empresa.
+```
+cd web
+copy .env.example .env.local      (preencher DATABASE_URL e APP_URL)
+npm ci
+npm run migrar                    (aplica migrations pendentes no banco do .env.local)
+npm run dev                       (http://localhost:3000)
+```
+
+Primeiro acesso: em desenvolvimento, a tela de entrada mostra o link. Em produção, sem e-mail configurado:
+`npm run link -- seu@email.com` gera o link pelo terminal; depois disso, o admin gera links em `/admin/usuarios`.
+
+Antes de todo commit: `npm run build && npm test && npm run lint` (dentro de `web/`), sem erros.
+
+## Stack
+
+Next.js 16 (App Router, sem Cache Components) · Postgres (Neon, projeto `rodada-de-negocios`, São Paulo) via driver
+`postgres` · login por convite com link mágico de uso único · testes com Vitest + PGlite (Postgres dentro do Node,
+dispensa Postgres instalado). Arquitetura portável: SQL puro e app Node comum, sem recurso exclusivo do provedor.

@@ -93,6 +93,10 @@ Sem perfis novos antes da primeira rodada.
 
 - Hospedagem própria do Raul agora (Postgres + app na Vercel), com arquitetura portável (schema SQL puro, app em container)
   para a infra da empresa depois. Login por convite (link mágico), nunca cadastro aberto.
+- Banco: Neon (decisão do Raul, 19/10/2026), projeto próprio `rodada-de-negocios`, região São Paulo. App em Next.js
+  com login próprio (sem Auth de provedor), para depender só de um Postgres.
+- Login: link mágico de uso único que abre uma página com botão "Entrar" (o antivírus de e-mail corporativo abre
+  links e queimaria o token). Sem serviço de e-mail por enquanto: o admin gera o link e envia pelo canal de sempre.
 - Postgres com usuário de leitura para o Power BI como contingência do telão.
 - Repositório próprio (`rodada-de-negocios`, privado), pasta local `C:\Projects\rodada-de-negocios`. Fora do monorepo
   `mopar-boost` (decisão do Raul, 16/10/2026). Bases brutas e dados corporativos ficam fora do Git.

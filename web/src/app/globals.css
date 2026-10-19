@@ -1,0 +1,25 @@
+@import "tailwindcss";
+
+/* Paleta: azul-noite do painel da rodada (banda) + cartões brancos (corpo). Modo claro só: uso em telão e sala de evento. */
+@theme {
+  --color-noite: #0b1f3a;
+  --color-noite-2: #12305a;
+  --color-acento: #2f7de1;
+  --color-ok: #16a34a;
+  --color-alerta: #d97706;
+  --color-erro: #dc2626;
+  --color-fundo: #f3f5f8;
+  --color-borda: #dde3ea;
+  --color-texto: #142033;
+  --color-suave: #5b6b80;
+  --font-sans: "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+body {
+  background: var(--color-fundo);
+  color: var(--color-texto);
+}
+
+.num {
+  font-variant-numeric: tabular-nums;
+}

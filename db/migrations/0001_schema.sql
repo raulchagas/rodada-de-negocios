@@ -203,7 +203,8 @@ returns int language sql immutable as $$
   end
 $$;
 
-create or replace function demanda_bi() returns trigger language plpgsql as $$
+create or replace function demanda_bi() returns trigger language plpgsql
+  set search_path = rodada, public as $$
 declare v_qme int;
 begin
   select qme into v_qme from item where id = new.item_id;
@@ -226,12 +227,13 @@ create table if not exists meta_grupo (
 );
 
 create table if not exists meta_consultor (
+  id            serial primary key,
   rodada_id     int not null references rodada(id) on delete cascade,
   consultor_id  int not null references consultor(id),
   categoria_id  int references categoria(id),      -- null = total
-  valor         numeric(14,2) not null check (valor >= 0),
-  primary key (rodada_id, consultor_id, categoria_id)
+  valor         numeric(14,2) not null check (valor >= 0)
 );
+create unique index if not exists meta_consultor_chave on meta_consultor (rodada_id, consultor_id, coalesce(categoria_id, 0));
 
 -- ---------------------------------------------------------------------------
 -- Pedidos. Uma linha = grupo × item × dealer destino × quantidade × responsável.
@@ -263,7 +265,8 @@ create index if not exists pedido_item   on pedido_linha (rodada_id, item_id);
 create index if not exists pedido_resp   on pedido_linha (rodada_id, responsavel_id);
 
 -- Validações de gravação: destino pertence ao grupo; quantidade múltipla do QME; responsável autorizado na categoria.
-create or replace function pedido_linha_bi() returns trigger language plpgsql as $$
+create or replace function pedido_linha_bi() returns trigger language plpgsql
+  set search_path = rodada, public as $$
 declare v_item item%rowtype; v_grupo text; v_perfil perfil; v_ok boolean;
 begin
   select * into v_item from item where id = new.item_id;
@@ -316,7 +319,8 @@ create table if not exists auditoria (
 );
 create index if not exists auditoria_registro on auditoria (tabela, registro_id);
 
-create or replace function auditoria_pedido() returns trigger language plpgsql as $$
+create or replace function auditoria_pedido() returns trigger language plpgsql
+  set search_path = rodada, public as $$
 begin
   if tg_op = 'DELETE' then
     insert into auditoria (tabela, registro_id, acao, usuario_id, antes)

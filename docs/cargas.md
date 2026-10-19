@@ -1,14 +1,21 @@
 # Cargas — layout das planilhas de entrada
 
-Toda entrada entra por planilha (.xlsx), pelo admin, na tela de cargas. Uma aba por tipo; o modelo com
-cabeçalhos e linhas de exemplo está em `cargas/modelos_cargas.xlsx`. Regras gerais:
+Toda entrada entra por planilha (.xlsx), pelo admin, na tela de cargas (`/admin/cargas`). Uma aba por tipo, e
+um mesmo arquivo pode trazer várias abas; o modelo com cabeçalhos e linhas de exemplo está em
+`cargas/modelos_cargas.xlsx` (a aba `leia-me` é ignorada na carga). Regras gerais:
 
-- Primeira linha = cabeçalho, nomes exatamente como abaixo (minúsculas, sem acento).
+- Primeira linha = cabeçalho com os nomes abaixo (maiúscula, acento e espaço são normalizados: `Grupo Código` = `grupo_codigo`).
+- Aba de dados só tem dados: nada de notas ou totais abaixo da tabela (viram linha com erro).
 - Códigos são texto (dealer `000123` não vira `123`): formatar as colunas de código como texto no Excel.
-- Carga **substitui** o conjunto do mesmo tipo na rodada (ex.: recarregar a base 21 pontos apaga a anterior),
-  exceto `csps`, que acumula por `numero_pedido`.
-- Linha com erro não entra; o relatório da carga lista linha e motivo. A carga só é aplicada se não houver erro
-  (tudo ou nada), para não deixar base pela metade.
+- Números aceitam `1234.56` ou `1.234,56`. Datas aceitam data do Excel, `15/12/2026` ou `2026-12-15`.
+- Cadastro mestre (hierarquia, consultores, fornecedores, usuários) é **atualizado** (upsert): o que ficou fora
+  da planilha não é apagado.
+- Bases da rodada **substituem** o conjunto anterior: base 21 pontos (demanda), carteira, metas e metas por
+  consultor. `csps` acumula por `numero_pedido`. Item com pedido nunca é apagado por recarga.
+- Validação e aplicação ficam no banco (`rodada.aplicar_carga`): com qualquer erro, nada é aplicado e a tela lista
+  aba, linha e motivo (até 500 erros). Tudo ou nada, para não deixar base pela metade.
+- Fluxo técnico: o navegador lê o arquivo, envia as linhas em lotes de 2.000 para `carga_linha` e chama
+  `aplicar_carga`. Assim o tamanho do arquivo não esbarra no limite de 4,5 MB por requisição da Vercel.
 
 ## 1. `hierarquia` (cadastro mestre, vale entre rodadas)
 
