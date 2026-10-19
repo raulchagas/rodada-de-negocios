@@ -1,0 +1,29 @@
+# Dado corporativo — nunca no Git
+dados/*
+*.csv
+!cargas/*.csv
+
+# Dependências e build
+node_modules/
+.next/
+dist/
+out/
+
+# Ambiente e segredos
+.env
+.env.*
+!.env.example
+
+# Ferramentas e temporários
+.vercel/
+.neon
+*.log
+.DS_Store
+Thumbs.db
+__pycache__/
+
+# Preferências locais do Claude Code
+.claude/settings.local.json
+
+# dados/ fica fora, mas o aviso entra
+!dados/README.md
