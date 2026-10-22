@@ -11,12 +11,14 @@ para o CSPS e conciliação pós-evento.
 2. `docs/HANDOFF.md` — estado atual e próximo passo.
 3. `docs/cargas.md` — layout das planilhas de entrada; modelo em `cargas/modelos_cargas.xlsx`.
 4. `db/migrations/` — schema Postgres puro (schema `rodada`), numeração sequencial.
+5. `planejamento/` — levantamento de escopo em andamento (comece por `planejamento/situacao.md`).
 
 ## Mapa
 
 | Pasta | O que tem |
 |---|---|
 | `docs/` | Decisões, handoff, layouts de carga |
+| `planejamento/` | Levantamento de escopo: situação, decisões e mudanças de escopo, perguntas abertas, jornadas, cronograma |
 | `db/migrations/` | Schema SQL (portável: qualquer Postgres 15+) |
 | `db/tests/` | Teste das regras de pedido (roda dentro do `npm test`) |
 | `cargas/` | Modelo de planilha (sem dados corporativos) |

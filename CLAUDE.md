@@ -7,6 +7,8 @@ Idioma: português do Brasil em tudo (código, commits, docs, textos de tela).
 2. `docs/HANDOFF.md` — estado atual, estado do banco, próximo passo.
 3. `docs/cargas.md` — ao mexer em importação ou no modelo de dados.
 4. `web/AGENTS.md` — Next.js 16 mudou APIs: ler o guia em `web/node_modules/next/dist/docs/` antes de usar uma API do Next.
+5. `planejamento/situacao.md` — levantamento de escopo em andamento. Não vale para o código até a mudança ser aprovada
+   e promovida para `docs/decisoes.md`; se uma tarefa tocar um tema em revisão ali, aponte e pergunte.
 
 ## Regras
 - Schema só via migration em `db/migrations/` (SQL puro, idempotente, numeração sequencial). Nada pelo dashboard do provedor.

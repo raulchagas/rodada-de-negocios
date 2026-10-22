@@ -1,7 +1,7 @@
 # HANDOFF — Rodada de Negócios (gestão de pedidos)
 
 > Documento de entrada no projeto. Vale para quem já está nele e para quem chega agora.
-> Atualizado em 19/10/2026. Atualizar ao fim de cada sessão de trabalho (seção 14).
+> Atualizado em 22/10/2026. Atualizar ao fim de cada sessão de trabalho (seção 14).
 
 ---
 
@@ -26,6 +26,12 @@ CSPS e confere o que foi efetivamente colocado.
 | Exportação CSPS e conciliação | A fazer (as consultas no banco já existem) |
 | Publicação na internet (Vercel) | Aguardando decisão |
 | Bases reais (21 pontos, hierarquia, carteira, metas) | **Não carregadas**: dependem do time |
+| Levantamento de escopo | **Em andamento** em `planejamento/`: 16 mudanças de escopo em análise e 53 perguntas abertas |
+
+> **Atenção (22/10/2026):** as chamadas de levantamento com Marcos (19–20/10) e o consolidado das conversas com o Codex
+> (21/10) reabriram parte das regras de `docs/decisoes.md`, entre elas o modelo de pedido, o preço e o papel da
+> plataforma na sugestão. Até que cada mudança seja aprovada, `docs/decisoes.md` continua vigente para o código, mas
+> convém ler `planejamento/situacao.md` antes de começar a tela de negociação.
 
 **Prazo:** o evento é em dezembro/2026. Ordem de entrega pensada para que, com negociação + painel prontos, a rodada
 funcione só com o time interno, mesmo que o acesso da rede atrase.
@@ -111,6 +117,7 @@ Mapa do repositório:
 | `docs/decisoes.md` | regras de negócio vigentes; prevalecem sobre qualquer outro texto |
 | `docs/HANDOFF.md` | este documento |
 | `docs/cargas.md` | layout das planilhas de carga |
+| `planejamento/` | levantamento de escopo em andamento: situação, decisões e mudanças de escopo, perguntas abertas, jornadas, cronograma |
 | `cargas/modelos_cargas.xlsx` | modelo da planilha (exemplos fictícios) |
 | `db/migrations/` | estrutura do banco em SQL (`0001` schema, `0002` login e cargas, `0003` validação das cargas) |
 | `db/tests/smoke.sql` | teste das regras de pedido |
@@ -214,7 +221,8 @@ tem 0. **Não rodar `npm audit fix --force`.**
 
 ## 13. Regras de trabalho
 
-- **Regras de negócio novas ou mudadas** entram primeiro em `docs/decisoes.md`.
+- **Mudança de escopo em discussão** é registrada em `planejamento/mudancas-de-escopo.md`; quando aprovada, entra em
+  `docs/decisoes.md`, que segue sendo a fonte das regras vigentes.
 - **Estrutura do banco** muda só por arquivo novo em `db/migrations/`, aplicado com `npm run migrar`; nunca pelo painel do Neon.
 - **Dado corporativo nunca vai para o Git.** Bases reais ficam em `dados/`. Senhas só no `.env.local`.
 - **Commits** com o e-mail `raul_chagas@hotmail.com` (exigência da Vercel), mensagem em português.
@@ -227,6 +235,7 @@ tem 0. **Não rodar `npm audit fix --force`.**
 |---|---|
 | 16/10/2026 | Entendimento fechado em 20 perguntas (`docs/decisoes.md`); estrutura inicial do banco; layout e modelo de cargas |
 | 19/10/2026 | Repositório no GitHub; banco no Neon; login por convite; tela de cargas; testes. Correções achadas pelos testes: funções do banco sem caminho fixo de schema, meta "total" de consultor sem chave, nota dentro da aba do modelo lida como dado, string do Neon que quebrava o driver |
+| 22/10/2026 | Pasta `planejamento/` criada: levantamento de 19–20/10 e consolidado do Codex (21/10) trazidos para o repositório em `planejamento/fontes/`; comparação com o repositório gerou 16 mudanças de escopo (`MUD-01` a `MUD-16`), 23 direções registradas e 53 perguntas abertas. Sem mudança de código |
 
 ## 15. Glossário
 
